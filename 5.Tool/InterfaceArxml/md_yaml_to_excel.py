@@ -537,11 +537,16 @@ class Application:  #
         excel_converter.print_excel_info()
 
         if wait_for_input:
-            input(
+            print(
                 "Excel file has been generated and saved to {}, press any key to exit...".format(
                     output_file
                 )
-            )
+            )            
+            # input(
+            #     "Excel file has been generated and saved to {}, press any key to exit...".format(
+            #         output_file
+            #     )
+            # )
 
 
 # Run the application with a boolean indicating whether to wait for user input

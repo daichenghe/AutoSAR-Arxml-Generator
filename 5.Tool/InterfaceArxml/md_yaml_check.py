@@ -238,14 +238,15 @@ class YamlChecker:
 
         errors = []
         # 遍历每个struct中的每个value
-        for struct_name, struct in self.yaml_dict_structs.items():
-            for value in struct.values():
-                # 如果存在'ref'并且它指向的key未被定义，那么记录错误
-                if "ref" in value and value["ref"] not in defined_keys:
-                    # 输出错误的ref和struct的名称
-                    errors.append(
-                        f"Undefined ref {value['ref']} in struct {struct_name}"
-                    )
+        if type(self.yaml_dict_structs) is dict:
+            for struct_name, struct in self.yaml_dict_structs.items():
+                for value in struct.values():
+                    # 如果存在'ref'并且它指向的key未被定义，那么记录错误
+                    if "ref" in value and value["ref"] not in defined_keys:
+                        # 输出错误的ref和struct的名称
+                        errors.append(
+                            f"Undefined ref {value['ref']} in struct {struct_name}"
+                        )
         return errors
 
     def _check_value_type(self) -> List[str]:
@@ -499,14 +500,15 @@ class YamlMarkdownChecker:
                 not_in_dataframes_part_array.append(key)
 
         # 检查结构体中是否有引用数组，如果有则从结果列表中移除
-        for key, value in self.yaml_checker.yaml_dict_structs.items():
-            for k, v in value.items():
-                if (
-                    v is not None
-                    and "ref" in v
-                    and v["ref"] in not_in_dataframes_part_array
-                ):
-                    not_in_dataframes_part_array.remove(v["ref"])
+        if(self.yaml_checker.yaml_dict_structs is not None):
+            for key, value in self.yaml_checker.yaml_dict_structs.items():
+                for k, v in value.items():
+                    if (
+                        v is not None
+                        and "ref" in v
+                        and v["ref"] in not_in_dataframes_part_array
+                    ):
+                        not_in_dataframes_part_array.remove(v["ref"])
 
         # 检查数组中是否有引用其他数组，如果有则从结果列表中移除 FIX: 2023-12-11 14:22:10
         for key, value in self.yaml_checker.yaml_dict_arrays.items():

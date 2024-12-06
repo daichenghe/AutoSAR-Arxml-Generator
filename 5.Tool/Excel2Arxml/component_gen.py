@@ -67,6 +67,16 @@ from logger_config import logger
 
 class CtApManager:
     def __init__(self, excel_path: str):
+        if not (excel_path.endswith('.xlsx') or excel_path.endswith('.xls')):
+            raise ValueError("Invalid file format. Only .xlsx and .xls files are supported.")
+        
+        try:
+            self.df = pd.read_excel(excel_path)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File not found: {excel_path}")
+        except pd.errors.ParserError:
+            raise pd.errors.ParserError(f"Error parsing the Excel file: {excel_path}")
+        
         self.basic_types = [
             "sint8",
             "uint8",
@@ -81,14 +91,12 @@ class CtApManager:
             "boolean",
         ]
         """初始化函数, 加载excel数据"""
-        self.df = pd.read_excel(excel_path)
         self.complete_df = self.df.copy()  # 用于存储完整的DataFrame, 用于生成依赖关系字典
         self.definitions = {"Value": {}, "Array": {}, "Structure": {}}  # 用于存储依赖关系字典
         self.parse_definitions()  # 解析DataFrame中定义的数据结构, 生成依赖关系字典。
         self.df = self.df.dropna(
             axis=0, how="any", subset=["Sender /Server"]
         )  # 去除Sender /Server为空的行的数据, 用于生成CtAp_M_XXXX字典
-
     def parse_definitions(self):
         """
         解析DataFrame中定义的数据结构, 生成依赖关系字典。

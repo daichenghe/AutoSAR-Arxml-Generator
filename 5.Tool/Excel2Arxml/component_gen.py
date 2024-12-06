@@ -32,6 +32,7 @@ from component_types.pr_ports import (
     NonQueuedReceiverComSpec,
     NonQueuedSenderComSpec,
     ServerComSpec,
+    DataElementRef,
 )
 from component_types.ports_creator import create_ports_xml
 from component_types.internal_behaviors_creator import create_internal_behaviors_xml
@@ -551,6 +552,8 @@ class CtApManager:
 
         # 添加P-PORT-PROTOTYPEs和R-PORT-PROTOTYPEs
         for short_name, ports_data in result_dict.items():
+            # for rport, port_info in ports_data.get("rports", []).items():
+            #     print(port_info)
             r_port_prototype_list = [
                 RPortPrototype(
                     UUID=uuid.uuid4().hex.upper(),
@@ -563,6 +566,10 @@ class CtApManager:
                         nonqueued_receiver_com_spec=NonQueuedReceiverComSpec(
                             uses_end_to_end_protection=False,  # 是否使用端到端保护, 默认为False
                             filter=Filter("ALWAYS"),  # 过滤器, 默认为ALWAYS
+                            data_element_ref = DataElementRef(
+                                dest="VARIABLE-DATA-PROTOTYPE",
+                                value=f"/PortInterfaces/{port_info['interface_name']}/{port_info['element_name']}",
+                            ),
                         )
                     ),
                 )
@@ -581,7 +588,11 @@ class CtApManager:
                         nonqueued_sender_com_spec=NonQueuedSenderComSpec(
                             uses_end_to_end_protection=False,  # 是否使用端到端保护, 默认为False
                             init_value=self.create_init_value_specification(
-                                self.get_definition(port_info["element"])
+                                self.get_definition(port_info["element"]),
+                            ),
+                            data_element_ref = DataElementRef(
+                                dest="VARIABLE-DATA-PROTOTYPE",
+                                value=f"/PortInterfaces/{port_info['interface_name']}/{port_info['element_name']}",
                             ),
                         )
                     ),

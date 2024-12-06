@@ -1,0 +1,11 @@
+Values:
+  EscState:
+    description: 'ESC状态'
+    type: uint8
+  MrmState:
+    description: 'MRM状态'
+    type: uint8
+
+Arrays:
+
+Structs:

@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 
 #########################   STEP 1 提取csv信息 #########################
-excel_path = "../../2.Maf_InterfaceExcel/swc.xlsx"
+excel_path = "../../2.Excel/swc.xlsx"
 df = pd.read_excel(excel_path)
 
 # 这里可以对df进行筛选再赋值给df_all
@@ -142,7 +142,7 @@ for data_name, group in grouped_by_data_name:
 total_interface = len(rocky_port)
 total_data = len(rocky_data)
 ##########################  STEP 2 生成Arxml   ##########################
-file_path = "../../3.Maf_Arxml/GmMomentaComposition_swc.arxml"
+file_path = "../../3.Arxml/GmMomentaComposition_swc.arxml"
 reader = Reader()
 document = reader.read_file(file_path)
 

@@ -996,12 +996,12 @@ class CtApManager:
 
 # 使用新的CtApManager类和相关函数
 if __name__ == "__main__":
-    manager = CtApManager("../../2.Maf_InterfaceExcel/swc.xlsx")
+    manager = CtApManager("../../2.Excel/swc.xlsx")
     ctap_m_dict = manager.create_ctap_m_dict()
     component_type_list = manager.create_component_type_list(ctap_m_dict)
 
     # 生成XML文件名
-    output_xml_file = "../../3.Maf_Arxml/result_component_new.arxml"
+    output_xml_file = "../../3.Arxml/swc.arxml"
 
     CtApManager.generate_xml(component_type_list, output_xml_file)
     CtApManager.count_and_print_stats(ctap_m_dict, output_xml_file)

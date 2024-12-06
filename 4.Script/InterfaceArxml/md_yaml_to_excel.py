@@ -523,9 +523,9 @@ class Application:  #
         excel_converter = ExcelConverter()
 
         # Global variables defined here
-        markdown_file = "../../1.Mf_Maf/Mf_CP_Graph.md"
-        yaml_file = "../../1.Mf_Maf/Maf_CP_interface.yaml"
-        output_file = "../../2.Maf_InterfaceExcel/swc.xlsx"
+        markdown_file = "../../1.Model/Swc_Port.md"
+        yaml_file = "../../1.Model/Data_Structure.yaml"
+        output_file = "../../2.Excel/swc.xlsx"
 
         # check if directory exists, if not, create it
         if not os.path.exists(os.path.dirname(output_file)):

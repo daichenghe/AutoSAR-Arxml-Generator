@@ -3,7 +3,7 @@ from typing import List
 import pandas as pd
 from lxml import etree
 
-excel_path = "../../2.Maf_InterfaceExcel/swc.xlsx"
+excel_path = "../../2.Excel/swc.xlsx"
 df = pd.read_excel(excel_path)
 df_all = df[df["Port type"] == "CS"].copy()
 # 按照Interface name进行去重

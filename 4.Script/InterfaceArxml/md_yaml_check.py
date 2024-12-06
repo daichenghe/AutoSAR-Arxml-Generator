@@ -17,8 +17,8 @@ import yaml
 from typing import List, Dict, Tuple, Any
 
 # global variables:
-markdown_file = "../../1.Mf_Maf/Mf_CP_Graph.md"
-yaml_file = "../../1.Mf_Maf/Maf_CP_interface.yaml"
+markdown_file = "../../1.Model/Swc_Port.md"
+yaml_file = "../../1.Model/Data_Structure.yaml"
 basic_types = [
     "sint8",
     "uint8",

@@ -86,16 +86,15 @@ Values:
     HWI_e_HvilDutyCycle:
         description: 'Bsw发给Asw的高压互锁信号占空比'
         type: uint8
-    HWI_Hz_HvilFreqcy:
+    HWI_Hz_HvilFrequency:
         description: 'Bsw发给Asw的高压互锁信号频率'
-        type: uint8
+        type: uint16
     HWI_V_AntiExpTemp:
         description: 'Bsw发给Asw的防爆阀处的温感信号'
         type: float32
     HWERI_b_BattUVld:
         description: 'Bsw发给Asw的总电压采集有效标志位'
         type: boolean
-        
     HWO_b_RlyPreCtrl:
         description: 'Asw发给Bsw的预充继电器低端控制标志'
         type: boolean   
@@ -237,16 +236,26 @@ Arrays:
         
 
 Structs:
-  TimeOT:
-    timeBaseStatus:
-      description: 'time状态'
-      type: uint8
-    nanoseconds:
-      description: 'ns'
-      type: uint32
-    seconds:
-      description: '秒的时间'
-      type: uint32
-    secondsHi:
-      description: '秒的高位'
-      type: uint16
+  AccType:
+    accx: 
+      type: float32
+    accy:
+      type: float32
+    accz:
+      type: float32
+      
+  RateType:
+    ratex: 
+      type: float32
+    ratey:
+      type: float32
+    ratez:
+      type: float32
+      
+  AccRateType:
+    acc:
+        ref: AccType
+    rate:
+        ref: RateType
+
+

@@ -187,6 +187,7 @@ class CtApManager:
                         "is_structure": base_type in self.definitions["Structure"],
                         "initial_value": initial_value,  # 这里暂时都是0
                     }
+
                 elif data_type == "Array":
                     array_info = self.definitions[data_type][element]
                     is_base_type_basic = base_type in self.basic_types
@@ -501,7 +502,7 @@ class CtApManager:
             # 如果是基本类型, 则直接添加数值
             if member_info["is_value"]:
                 fields.numerical_value_specification.append(
-                    self.create_numerical_value_specification(0)
+                    self.create_numerical_value_specification(member_info['initial_value'])
                 )
                 continue
 

@@ -4,7 +4,7 @@
 #  * @Last Modified by:   junhao.bai
 #  * @Last Modified time: 2024-1-15 16:17:50
 #  */
-
+import math
 from enum import Enum
 import os
 import uuid
@@ -130,14 +130,26 @@ class CtApManager:
                 if (
                     data_type == "Value"
                 ):  # Value类型的数据, Base Type只有可能是基本类型, 将其添加到Value字典中
+                    if math.isnan(row["Initial value"]) == True:
+                        row["Initial value"] = 0
+                    if row["Base Type"] in ["float32", "float64"]:
+                        initial_value = float(row["Initial value"])
+                    else:
+                        initial_value = int(row["Initial value"])
                     self.definitions[data_type][element] = {
                         "type": row["Base Type"],
-                        "initial_value": 0,
+                        "initial_value": initial_value,
                         "is_value": True,
                         "is_array": False,
                         "is_structure": False,
                     }
                 else:  # Array和Structure类型的数据, Base Type可能是基本类型, 也可能是数组或者结构体, 先将其添加到字典中, 然后再进行处理
+                    if math.isnan(row["Initial value"]) == True:
+                        row["Initial value"] = 0
+                    if row["Base Type"] in ["float32", "float64"]:
+                        initial_value = float(row["Initial value"])
+                    else:
+                        initial_value = int(row["Initial value"])             
                     self.definitions[data_type][element] = {
                         "type": data_type,
                         "base_type": None
@@ -148,7 +160,7 @@ class CtApManager:
                         "is_structure": True if data_type == "Structure" else False,
                         "members": {} if data_type == "Structure" else None,
                         "dlc": None if data_type == "Structure" else int(row["DLC"]),
-                        "initial_value": 0,  # 这里暂时都是0
+                        "initial_value": initial_value,
                     }
 
         # 然后填充结构体和数组内部的详细信息
@@ -161,13 +173,19 @@ class CtApManager:
             if data_type == "Structure":
                 structure_dict = self.definitions[data_type][element]["members"]
                 if signal not in structure_dict:  # 确保不重复添加
+                    if math.isnan(row["Initial value"]) == True:
+                        row["Initial value"] = 0
+                    if row["Base Type"] in ["float32", "float64"]:
+                        initial_value = float(row["Initial value"])
+                    else:
+                        initial_value = int(row["Initial value"])                     
                     structure_dict[signal] = {
                         "base_type": base_type,
                         "type": base_type,
                         "is_value": base_type in self.basic_types,
                         "is_array": base_type in self.definitions["Array"],
                         "is_structure": base_type in self.definitions["Structure"],
-                        "initial_value": 0,  # 这里暂时都是0
+                        "initial_value": initial_value,  # 这里暂时都是0
                     }
                 elif data_type == "Array":
                     array_info = self.definitions[data_type][element]
@@ -185,7 +203,7 @@ class CtApManager:
                     array_info["is_value"] = is_base_type_basic
                     array_info["is_array"] = is_base_type_array
                     array_info["is_structure"] = is_base_type_structure
-                    array_info["initial_value"] = 0  # Default initial value
+                    array_info["initial_value"] = row["Initial value"]  # Default initial value
 
                     # If the base type of the array is a structure, copy the members from the structure definition.
                     if is_base_type_structure:

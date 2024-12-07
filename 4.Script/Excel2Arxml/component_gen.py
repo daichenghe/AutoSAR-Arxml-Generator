@@ -421,7 +421,7 @@ class CtApManager:
             value = 0
         return NumericalValueSpecification(value=value)
 
-    def create_array_value_specification(self, element_def) -> ArrayValueSpecification:
+    def create_array_value_specification(self, element_def) -> ArrayValueSpecification: 
         if element_def["base_type"] in self.basic_types:
             # Create an array of numerical values if the base type is basic.
             logger.debug(
@@ -433,7 +433,7 @@ class CtApManager:
             return ArrayValueSpecification(
                 elements=Elements(
                     numerical_value_specification=[
-                        self.create_numerical_value_specification(0)
+                        self.create_numerical_value_specification(element_def['initial_value'])
                         for _ in range(element_def["dlc"])
                     ]
                 )

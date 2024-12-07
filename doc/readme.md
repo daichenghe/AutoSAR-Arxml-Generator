@@ -52,3 +52,10 @@
                     self.create_numerical_value_specification(member_info['initial_value'])
                 )
 ```
++ 修改array初值
+```
+            if member_info["is_value"]:
+                fields.numerical_value_specification.append(
+                    self.create_numerical_value_specification(member_info['initial_value'])
+                )
+```

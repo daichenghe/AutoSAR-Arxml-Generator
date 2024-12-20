@@ -40,7 +40,7 @@ for index, row in df_all.iterrows():
                     ARGUMENTS=[
                         ARGUMENT_DATA_PROTOTYPE(
                             SHORT_NAME=data_name,
-                            TYPE_TREF_DEST=f"DataTypes/ImplementationDataTypes/{data_name}",
+                            TYPE_TREF_DEST=f"/DataTypes/ImplementationDataTypes/{data_name}",
                             DIRECTION="OUT",
                             SERVER_ARGUMENT_IMPL_POLICY="USE-ARGUMENT-TYPE",
                         )

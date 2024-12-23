@@ -19,6 +19,8 @@ import yaml
 import re
 import os
 
+# for debug
+os.chdir('InterfaceArxml')
 
 class MarkdownTableProcessor:
     def parse_table(self, markdown_str):

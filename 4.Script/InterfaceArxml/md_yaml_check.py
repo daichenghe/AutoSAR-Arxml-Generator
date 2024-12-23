@@ -9,12 +9,15 @@
 # required packages
 # pyyaml: pip install pyyaml
 # pandas: pip install pandas
-
+import os
 import re
 import sys
 import pandas as pd
 import yaml
 from typing import List, Dict, Tuple, Any
+
+# for debug
+os.chdir('D:/github/arxml-generator/4.Script/InterfaceArxml')
 
 # global variables:
 markdown_file = "../../1.Model/Swc_Port.md"
@@ -286,18 +289,18 @@ class YamlChecker:
             if "size" not in value.keys():
                 errors.append(f"Size is not defined for array {key}")
                 continue
-            # 如果存在size, size必须为1~2000之间的整数, 且不能为NoneType
+            # 如果存在size, size必须为1~51200之间的整数, 且不能为NoneType
             elif value["size"] is None:
                 errors.append(f"Size is not defined for array {key}")
             elif not isinstance(value["size"], int):
                 errors.append(
-                    f"Invalid size {value['size']} for array {key}, size must be an integer between 1 and 2000"
+                    f"Invalid size {value['size']} for array {key}, size must be an integer between 1 and 51200"
                 )
             elif value["size"] is not None and (
-                value["size"] < 1 or value["size"] > 2000
+                value["size"] < 1 or value["size"] > 51200
             ):
                 errors.append(
-                    f"Invalid size {value['size']} for array {key}, size must be between 1 and 2000"
+                    f"Invalid size {value['size']} for array {key}, size must be between 1 and 51200"
                 )
             # If the array has a 'type', check it's a basic type or a valid ref
             if "type" in value and value["type"] not in basic_types:

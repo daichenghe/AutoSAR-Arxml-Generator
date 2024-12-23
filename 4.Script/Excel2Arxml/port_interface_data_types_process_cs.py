@@ -43,6 +43,7 @@ for index, row in df_all.iterrows():
                             TYPE_TREF_DEST=f"/DataTypes/ImplementationDataTypes/{data_name}",
                             DIRECTION="OUT",
                             SERVER_ARGUMENT_IMPL_POLICY="USE-ARGUMENT-TYPE",
+                            DEST_TYPE = "IMPLEMENTATION-DATA-TYPE"
                         )
                     ],
                     POSSIBLE_ERROR_REFS=[

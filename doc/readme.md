@@ -59,3 +59,25 @@
                     self.create_numerical_value_specification(member_info['initial_value'])
                 )
 ```
+
+| 列名 | 描述 |
+| --- | --- |
+| Sender / Server | 表示信号的发送者或服务器端。 |
+| Receiver / Client | 表示信号的接收者或客户端。 |
+| S_Trigger | 表示发送端的触发条件。 |
+| R_Trigger | 表示接收端的触发条件。 |
+| Port type | 表示端口的类型，如SR或者CS。 |
+| Queued | 表示端口是否为队列类型。 |
+| Element(Structure/Array/Value) | 表示元素的类型，如结构体（Structure）、数组（Array）或值（Value）。 |
+| Signal description | 表示信号的描述信息。 |
+| Data type | 表示数据的类型，如整数、浮点数、字符串等。 |
+| Signal | 表示信号的名称。 |
+| Base Type | 表示数据的基本类型，如 int、float、char 等。 |
+| DLC | 表示数据的长度（字节数）。 |
+| Initial value | 表示数据的初始值。 |
+| Properties name | 表示属性的名称。 |
+| Interface name | 表示接口的名称。 |
+| Element name | 表示元素的名称。 |
+| Data name | 表示数据的名称。 |
+| Sender/Client Runnable Name | 表示发送者或客户端的可运行实体名称。 |
+| Receiver/Server Runnable Name | 表示接收者或服务器端的可运行实体名称。 |

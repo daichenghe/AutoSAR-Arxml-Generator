@@ -24,6 +24,7 @@ class ARGUMENT_DATA_PROTOTYPE:
     TYPE_TREF_DEST: str
     DIRECTION: str
     SERVER_ARGUMENT_IMPL_POLICY: str
+    DEST_TYPE: str
 
 
 @dataclass
@@ -62,7 +63,8 @@ def serialize_to_xml(data: CLIENT_SERVER_INTERFACE) -> etree._Element:
 
             type_tref_dest = etree.SubElement(argument_elem, "TYPE-TREF")
             type_tref_dest.text = argument.TYPE_TREF_DEST
-            type_tref_dest.attrib["DEST"] = argument.TYPE_TREF_DEST
+
+            type_tref_dest.attrib["DEST"] = argument.DEST_TYPE
 
             direction = etree.SubElement(argument_elem, "DIRECTION")
             direction.text = argument.DIRECTION
@@ -71,13 +73,13 @@ def serialize_to_xml(data: CLIENT_SERVER_INTERFACE) -> etree._Element:
                 argument_elem, "SERVER-ARGUMENT-IMPL-POLICY"
             )
             server_argument_impl_policy.text = argument.SERVER_ARGUMENT_IMPL_POLICY
-
+        '''
         possible_error_refs = etree.SubElement(operation_elem, "POSSIBLE-ERROR-REFS")
         for error_ref in operation.POSSIBLE_ERROR_REFS:
             error_ref_elem = etree.SubElement(possible_error_refs, "POSSIBLE-ERROR-REF")
             error_ref_elem.text = error_ref.DEST
             error_ref_elem.attrib["DEST"] = error_ref.DEST
-
+        '''
     possible_errors = etree.SubElement(root, "POSSIBLE-ERRORS")
     for error in data.POSSIBLE_ERRORS:
         error_elem = etree.SubElement(possible_errors, "APPLICATION-ERROR")
@@ -104,6 +106,7 @@ test_instance = CLIENT_SERVER_INTERFACE(
                     TYPE_TREF_DEST="/DataTypes/ImplementationDataTypes/IdtM_TimeOT",  # Data name
                     DIRECTION="OUT",  # 暂时是OUT
                     SERVER_ARGUMENT_IMPL_POLICY="USE-ARGUMENT-TYPE",
+                    DEST_TYPE = "IMPLEMENTATION-DATA-TYPE"
                 )
             ],
             POSSIBLE_ERROR_REFS=[

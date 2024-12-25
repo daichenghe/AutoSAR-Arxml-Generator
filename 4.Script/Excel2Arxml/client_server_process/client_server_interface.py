@@ -65,7 +65,8 @@ def serialize_to_xml(data: CLIENT_SERVER_INTERFACE) -> etree._Element:
             type_tref_dest.text = argument.TYPE_TREF_DEST
 
             type_tref_dest.attrib["DEST"] = argument.DEST_TYPE
-
+            # input(argument.DIRECTION)
+            # input(type(argument.DIRECTION))
             direction = etree.SubElement(argument_elem, "DIRECTION")
             direction.text = argument.DIRECTION
 

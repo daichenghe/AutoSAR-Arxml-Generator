@@ -30,6 +30,8 @@ for index, row in df_all.iterrows():
     interface_name = row["Interface name"]
     element_name = row["Element name"]
     data_name = row["Data name"]
+    para_type = row["Para Type"]
+
     instance.append(
         CLIENT_SERVER_INTERFACE(
             SHORT_NAME=interface_name,
@@ -41,7 +43,7 @@ for index, row in df_all.iterrows():
                         ARGUMENT_DATA_PROTOTYPE(
                             SHORT_NAME=data_name,
                             TYPE_TREF_DEST=f"/DataTypes/ImplementationDataTypes/{data_name}",
-                            DIRECTION="OUT",
+                            DIRECTION=para_type,
                             SERVER_ARGUMENT_IMPL_POLICY="USE-ARGUMENT-TYPE",
                             DEST_TYPE = "IMPLEMENTATION-DATA-TYPE"
                         )

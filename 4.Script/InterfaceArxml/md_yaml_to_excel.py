@@ -20,7 +20,7 @@ import re
 import os
 
 # for debug
-os.chdir('InterfaceArxml')
+# os.chdir('InterfaceArxml')
 
 class MarkdownTableProcessor:
     def parse_table(self, markdown_str):
@@ -118,6 +118,10 @@ class ExcelConverter:
 
         for df in dataframes_part_value:
             for i, row in df.iterrows():
+                if "Para Type" in row:
+                    para_type = row["Para Type"]
+                else:
+                    para_type = "OUT"                
                 element = row["Element(Structure/Array/Value)"]
                 if element in yaml_dict_values.keys():
                     info = yaml_dict_values[element]
@@ -134,6 +138,7 @@ class ExcelConverter:
                         "Base Type": info.get("type", ""),
                         "DLC": "",
                         "Initial value": str(info.get("value", "")),
+                        "Para Type": para_type,
                     }
                     # 如果存在Queued列，则将其加入到new_row中, 不存在则设置为0
                     if "Queued" in row:
@@ -193,7 +198,10 @@ class ExcelConverter:
             s_trigger = "" if is_referenced else row["S_Trigger"]
             r_trigger = "" if is_referenced else row["R_Trigger"]
             port_type = row["Port type"]
-
+            if "Para Type" in row:
+                para_type = row["Para Type"]
+            else:
+                para_type = "OUT"
             new_row = {
                 "Sender /Server": sender_server,
                 "Receiver /Client": receiver_client,
@@ -207,8 +215,9 @@ class ExcelConverter:
                 "Base Type": info.get("type", ref),
                 "DLC": info.get("size", ""),
                 "Initial value": str(info.get("value", "")),
+                "Para Type": para_type,
             }
-
+            # input(new_row)
             # 如果存在Queued列，则将其加入到new_row中, 不存在则设置为0
             if "Queued" in row:
                 new_row["Queued"] = row["Queued"]
@@ -256,7 +265,10 @@ class ExcelConverter:
         if ref and ref in yaml_dict_arrays:
             array_type_name = ref
             base_type = array_type_name
-
+        if "Para Type" in row:
+            para_type = row["Para Type"]
+        else:
+            para_type = "OUT"
         # Create a row for the array itself
         new_row = {
             "Sender /Server": sender_server,
@@ -271,6 +283,7 @@ class ExcelConverter:
             "Base Type": base_type,
             "DLC": size,
             "Initial value": str(array_info.get("value", "")),
+            "Para Type": para_type,
         }
 
         # 如果存在Queued列，则将其加入到new_row中, 不存在则设置为0
@@ -481,6 +494,7 @@ class ExcelConverter:
             "Data name",
             "Sender/Client Runnable Name",
             "Receiver/Server Runnable Name",
+            "Para Type",
         ]
         self.result = self.result[columns_order]
 

@@ -17,7 +17,7 @@ import yaml
 from typing import List, Dict, Tuple, Any
 
 # for debug
-os.chdir('D:/github/arxml-generator/4.Script/InterfaceArxml')
+# os.chdir('D:/github/arxml-generator/4.Script/InterfaceArxml')
 
 # global variables:
 markdown_file = "../../1.Model/Swc_Port.md"

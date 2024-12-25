@@ -399,6 +399,7 @@ class CtApManager:
                 "runnable_name_receiver": row.get(
                     "Receiver/Server Runnable Name", None
                 ),
+                # "para_type": row["Para Type"],
             }
 
             # 这里假设都是SR类型的端口, 之后可以扩展
